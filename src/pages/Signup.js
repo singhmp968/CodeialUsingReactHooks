@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { useToasts } from 'react-toast-notifications';
 
@@ -60,7 +61,9 @@ const Signup = () => {
 
     setSigningUp(false);
   };
-
+  if (auth.user) {
+    return <Redirect to="/" />;
+  }
   return (
     <form className={styles.loginForm} onSubmit={handleFormSubmit}>
       <span className={styles.loginSignupHeader}> Signup</span>
