@@ -18,6 +18,7 @@ import {
   getItemFromLocalStorage,
 } from '../utils';
 import { PostsContext, PostsProvider } from '../providers/PostProvider';
+import Comment from '../components/Comment';
 
 export const useAuth = () => {
   return useContext(AuthContext);
@@ -161,10 +162,21 @@ export const useProvidePosts = () => {
     const newPost = [post, ...posts];
     setPosts(newPost);
   };
-
+  // adding comment to the posts UI
+  const addComment = (comment, postId) => {
+    const newPosts = posts.map((post) => {
+      if (post._id === postId) {
+        /// vvvi concept
+        return { ...post, comments: [...post.comments, comment] };
+      }
+      return post;
+    });
+    setPosts(newPosts);
+  };
   return {
     data: posts,
     loading,
     addPostToState,
+    addComment,
   };
 };
